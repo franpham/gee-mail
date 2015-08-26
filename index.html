@@ -1,18 +1,70 @@
 <html>
 	<head>
+            <title>Gee-mail</title>
 		<script src="js/mail-generator.js"></script>
+                <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
+        window.onload = function(){
+            var main = function() {
+              for (var i = 0; i < window.geemails.length; i++) {
+                  addMail(window.geemails[i]);
+              }
+            };
+ 
+            function addMail(mail) {
+                    var item = $('<li>').addClass('mailItem').append(
+                          $('<div>').addClass('date').text(mail['date']),
+                          $('<div>').addClass('sender').text(mail['sender']),
+                          $('<div>').addClass('subject').text(mail['subject']),
+                          $('<p>').addClass('desc').text(mail['body']).hide()
+                    );
+                    item.click(function() {
+                        $('.highlight').removeClass('highlight');
+                        $(this).addClass('highlight');
+                        changeItem(13);     // same as 'Enter';
+                    });
+                    $('#mail').append(item);
+                    $('#counter').text($('#mail').children().length);
+              
+            };
+            
+            function changeItem(code) {
+                    var activeItem = $('.highlight');
+                    if (activeItem) {
+                       activeItem.removeClass('highlight');
+                       if (code === 13) {
+                           activeItem.addClass('read highlight');
+                           activeItem.children('.desc').toggle();
+                       }
+                       else if (code === 38) {      // up arrow key
+                           activeItem.prev().addClass('highlight');
+                       }
+                       else if (code === 40) {      // down arrow key
+                           activeItem.next().addClass('highlight');
+                       }
+                   }
+            }
+            
+            $(document).ready(main);
+            
+            setInterval(function() {
+              addMail(getNewMessage());
+            }, 1000);
+            
+            $(document).keydown(function(event) {
+              changeItem(event.which);
+            });
+        };
     </script>
 	</head>
 	<body>
+		<div class="heading" id="header">
+			Gee-mail Inbox (<span id="counter"></span> messages)
+		</div>
 		<div class="container" id="main">
-			Build Me!
+                    <ul class="mail" id="mail">
+                    </ul>
 		</div>
 	</body>
 </html>

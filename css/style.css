@@ -1,0 +1,57 @@
+
+/* Extra functionalities:
+1. Emails can be opened/ closed by pressing Enter.
+2. Email that has focus is highlighted.
+3. Emails read are colored gray.
+4. Emails can be selected/ navigated by up & down arrow keys.
+*/
+
+.heading {
+    margin: 4px;
+    text-align: center;
+    font: 2em bold;
+    background-color: lightblue;
+}
+
+.container {
+    margin: 4px;
+    background-color: beige;
+}
+
+.mail {
+    list-style: none;
+}
+
+.mailItem {
+    border-bottom: solid gray;
+}
+
+.desc {
+    clear: both;
+    padding: 8px;
+    background-color: white;
+}
+
+.date {
+    float: left;
+    width: 30%;
+    padding: 4px;
+}
+
+.sender {
+    float: left;
+    width: 30%;
+    padding: 4px;
+}
+
+.subject {
+    padding: 4px;
+}
+
+.read {
+    background-color: lightgray;
+}
+
+.highlight {
+    background-color: yellow;
+}
